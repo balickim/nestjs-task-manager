@@ -6,6 +6,7 @@ import { NotFoundException } from '@nestjs/common';
 import { TasksRepository } from './tasks.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './task.entity';
+import { User } from 'src/auth/user.entity';
 
 @Injectable()
 export class TasksService {
@@ -28,8 +29,8 @@ export class TasksService {
     return found;
   }
 
-  async createTask(createTaskDto: createTaskDto): Promise<Task> {
-    return this.tasksRepository.createTask(createTaskDto);
+  async createTask(createTaskDto: createTaskDto, user: User): Promise<Task> {
+    return this.tasksRepository.createTask(createTaskDto, user);
   }
 
   async deleteTaskById(id: string): Promise<void> {
